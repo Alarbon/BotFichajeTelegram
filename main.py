@@ -3,6 +3,8 @@ import nest_asyncio
 import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
+from telegram import BotCommand
+from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler
 from datetime import datetime, timedelta
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -224,8 +226,9 @@ async def generic_edit(update: Update, context: ContextTypes.DEFAULT_TYPE, field
 
 def run_bot():
     TOKEN = os.environ["BOT_TOKEN"]
-    app = Application.builder().token(TOKEN).build()
+    app = ApplicationBuilder().token(TOKEN).build()
 
+    # Handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CallbackQueryHandler(handle_buttons))
@@ -234,7 +237,8 @@ def run_bot():
     app.add_handler(CommandHandler("editar_pausa_inicio", lambda u, c: generic_edit(u, c, "pause_start")))
     app.add_handler(CommandHandler("editar_pausa_fin", lambda u, c: generic_edit(u, c, "pause_end")))
 
-    async def setup():
+    async def main():
+        # Comandos personalizados del bot
         await app.bot.set_my_commands([
             BotCommand("start", "Mostrar menú de fichaje"),
             BotCommand("help", "Instrucciones de uso"),
@@ -243,12 +247,10 @@ def run_bot():
             BotCommand("editar_pausa_inicio", "Editar pausa inicio"),
             BotCommand("editar_pausa_fin", "Editar pausa fin"),
         ])
-        print("Bot en marcha...")
-        await app.run_polling(close_loop=False)
+        print("[INFO] Bot en marcha...")
+        await app.run_polling()
 
-    loop = asyncio.get_event_loop()
-    loop.create_task(setup())
-    loop.run_forever()
+    asyncio.run(main())  # 👈 Ejecuta el bot correctamente
 
 if __name__ == "__main__":
     run_bot()
