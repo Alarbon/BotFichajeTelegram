@@ -4,3 +4,4 @@ nest_asyncio
 google-cloud-firestore==2.21.0
 google-api-core>=2.25.1
 httpx==0.26.0
+python-dotenv>=1.0.0
