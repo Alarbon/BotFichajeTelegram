@@ -1,0 +1,23 @@
+# Ignorar credenciales de Firebase
+firebase_credentials.json
+
+# Archivos de entorno (si usas .env)
+.env
+
+# Carpetas comunes de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Entornos virtuales
+env/
+venv/
+.venv/
+
+# Archivos temporales de VS Code, PyCharm, etc.
+.vscode/
+.idea/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
