@@ -13,10 +13,23 @@ load_dotenv()
 
 nest_asyncio.apply()
 
-# INICIALIZACIÓN FIREBASE
-print("[INFO] Ruta credenciales:", os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
-cred_path = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+# Si lo tienes en .env
+cred_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+
+# Detectar si es un path a archivo o el propio JSON
+if cred_json and cred_json.strip().startswith('{'):
+    print("[INFO] Las credenciales están embebidas en el entorno")
+    cred_dict = json.loads(cred_json)
+    with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.json') as f:
+        json.dump(cred_dict, f)
+        cred_path = f.name
+else:
+    print(f"[INFO] Ruta credenciales: {cred_json}")
+    cred_path = cred_json
+
+# Inicializar Firebase
 cred = credentials.Certificate(cred_path)
+initialize_app(cred)
 
 
 firebase_admin.initialize_app(cred)
