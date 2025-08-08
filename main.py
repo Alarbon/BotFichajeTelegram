@@ -12,6 +12,8 @@ import os
 import json
 from dotenv import load_dotenv
 import tempfile
+from telegram.ext import Application
+
 
 load_dotenv() 
 
@@ -226,7 +228,9 @@ async def generic_edit(update: Update, context: ContextTypes.DEFAULT_TYPE, field
 
 def run_bot():
     TOKEN = os.environ["BOT_TOKEN"]
-    app = ApplicationBuilder().token(TOKEN).build()
+
+    app = Application.builder().token(TOKEN).build()
+
 
     # Handlers
     app.add_handler(CommandHandler("start", start))
