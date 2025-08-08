@@ -14,8 +14,7 @@ load_dotenv()
 nest_asyncio.apply()
 
 # INICIALIZACIÓN FIREBASE
-cred_dict = json.loads(os.environ["FIREBASE_CREDENTIALS_JSON"])
-cred = credentials.Certificate(cred_dict)
+cred = credentials.Certificate(os.environ["GOOGLE_APPLICATION_CREDENTIALS"])
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
