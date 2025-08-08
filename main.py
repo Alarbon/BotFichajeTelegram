@@ -29,9 +29,6 @@ else:
     cred_path = cred_input or "./credentials.json"
 
 cred = credentials.Certificate(cred_path)
-firebase_admin.initialize_app(cred)
-
-
 
 firebase_admin.initialize_app(cred)
 db = firestore.client()
