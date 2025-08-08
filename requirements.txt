@@ -1,5 +1,5 @@
 python-telegram-bot==20.7
-firebase-admin==7.1.0
+firebase-admin==6.3.0
 nest_asyncio==1.6.0
 google-cloud-firestore==2.21.0
 google-api-core>=2.25.1
