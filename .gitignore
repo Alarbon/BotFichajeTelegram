@@ -1,5 +1,5 @@
 # Ignorar credenciales de Firebase
-firebase_credentials.json
+credentials.json
 
 # Archivos de entorno (si usas .env)
 .env
